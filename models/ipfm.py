@@ -106,7 +106,7 @@ class ModelConfig:
         # self.cross_attention_dim = cross_attention_dim
 
 
-class Adapter(nn.Module):
+class IPFM(nn.Module):
     def __init__(self, config):
         super().__init__()
         self.config = config

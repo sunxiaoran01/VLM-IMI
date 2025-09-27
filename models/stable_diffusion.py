@@ -20,7 +20,7 @@ import numpy as np
 import PIL.Image
 import torch
 import torch.nn.functional as F
-from transformers import CLIPImageProcessor, CLIPTextModel, CLIPTokenizer, CLIPVisionModelWithProjection
+from transformers import CLIPImageProcessor, CLIPVisionModelWithProjection
 
 from diffusers.callbacks import MultiPipelineCallbacks, PipelineCallback
 from diffusers.image_processor import PipelineImageInput, VaeImageProcessor
@@ -41,7 +41,7 @@ from diffusers.pipelines.pipeline_utils import DiffusionPipeline, StableDiffusio
 from diffusers.pipelines.stable_diffusion.pipeline_output import StableDiffusionPipelineOutput
 from diffusers.pipelines.stable_diffusion.safety_checker import StableDiffusionSafetyChecker
 from diffusers.pipelines.controlnet.multicontrolnet import MultiControlNetModel
-from models.adapter import T5TextEmbedder, Adapter
+from models.ipfm import T5TextEmbedder, Adapter
 
 
 
