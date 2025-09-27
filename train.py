@@ -10,6 +10,8 @@ import torch
 import torch.utils.data
 import torch.utils.checkpoint
 import torch.nn.functional as F
+import utils
+import transformers
 from accelerate import Accelerator
 from accelerate.logging import get_logger
 from accelerate.utils import ProjectConfiguration, set_seed
@@ -22,9 +24,11 @@ from diffusers import (
     AutoencoderKL,
     DDPMScheduler,
     UNet2DConditionModel,
+    StableDiffusionControlNetPipeline,
+    DDIMScheduler,
     ControlNetModel
 )
-from models.ipfm import IPFM, T5TextEmbedder
+from models.adapter import Adapter, T5TextEmbedder
 from diffusers.optimization import get_scheduler
 from diffusers.utils import check_min_version
 from diffusers.utils.import_utils import is_xformers_available
@@ -67,15 +71,16 @@ def sampling_train(vae, unet, scheduler, args, accelerator, noisy_latents, encod
         image_pred = vae.decode(latents / vae.config.scaling_factor, return_dict=False, generator=generator)[0]
 
     return image_pred
+# CUDA_VISIBLE_DEVICES="0,1" accelerate launch train.py --enable_xformers_memory_efficient_attention --gradient_checkpointing
 
 
 def parse_args_and_config():
-    parser = argparse.ArgumentParser(description='VLI-IMI Models')
-    parser.add_argument("--config", default='configs/config.yml', type=str,
+    parser = argparse.ArgumentParser(description='LLM_Diff Models')
+    parser.add_argument("--config", default='/data/sunxr/LLM-Diff/configs/config.yml', type=str,
                         help="Path to the config file")
-    parser.add_argument("--output_dir", type=str, default="output",
+    parser.add_argument("--output_dir", type=str, default="/data/sunxr/LLM-Diff/output_adapter",
                         help="The output directory where the model predictions and checkpoints will be written.")
-    parser.add_argument("--data_dir", type=str, default="data",
+    parser.add_argument("--data_dir", type=str, default="/data/sunxr/LLM-Diff/data",
                         help="The data directory where the datasets are used.")
     parser.add_argument("--train_dataset", type=str, default="lowlight", help="The name of the train dataset.")
     parser.add_argument("--num_workers", type=int, default=4)
@@ -274,18 +279,18 @@ if accelerator.is_main_process:
         os.makedirs(args.output_dir, exist_ok=True)
 
 
-# load LLM and IPFM
-llm_model = T5TextEmbedder(config, pretrained_path="pretrained/flan-t5-large")
+# load LLM and Adapter
+llm_model = T5TextEmbedder(config, pretrained_path="/data/sunxr/LLM-Diff/pretrained/flan-t5-large")
 
-ipfm = IPFM(config)
+adapter = Adapter(config)
 
 # Load scheduler and models
-noise_scheduler = DDPMScheduler.from_pretrained("pretrained/stable-diffusion-2.1",
+noise_scheduler = DDPMScheduler.from_pretrained("/data/sunxr/LLM-Diff/pretrained/stable-diffusion-2.1",
                                                 subfolder="scheduler")
 
-vae = AutoencoderKL.from_pretrained("stable-diffusion-2.1",
+vae = AutoencoderKL.from_pretrained("/data/sunxr/LLM-Diff/pretrained/stable-diffusion-2.1",
                                     subfolder="vae")
-unet = UNet2DConditionModel.from_pretrained("stable-diffusion-2.1",
+unet = UNet2DConditionModel.from_pretrained("/data/sunxr/LLM-Diff/pretrained/stable-diffusion-2.1",
                                             subfolder="unet")
 
 logger.info("Initializing controlnet weights from unet")
@@ -297,7 +302,7 @@ if version.parse(accelerate.__version__) >= version.parse("0.16.0"):
     def save_model_hook(models, weights, output_dir):
         assert len(models) == 2 and len(weights) == 2
         for i, model in enumerate(models):
-            sub_dir = "controlnet" if isinstance(model, ControlNetModel) else "ipfm"
+            sub_dir = "controlnet" if isinstance(model, ControlNetModel) else "adapter"
             model.save_pretrained(os.path.join(output_dir, sub_dir))
             # make sure to pop weight so that corresponding model is not saved again
             weights.pop()
@@ -310,7 +315,7 @@ if version.parse(accelerate.__version__) >= version.parse("0.16.0"):
 
             # load diffusers style into model
             if not isinstance(model, ControlNetModel):
-                load_model = IPFM.from_pretrained(os.path.join(input_dir, "ipfm"))
+                load_model = Adapter.from_pretrained(os.path.join(input_dir, "adapter"))
             else:
                 load_model = ControlNetModel.from_pretrained(input_dir, subfolder="controlnet")
                 model.register_to_config(**load_model.config)
@@ -327,7 +332,7 @@ vae.requires_grad_(False)
 unet.requires_grad_(False)
 llm_model.requires_grad_(False)
 controlnet.train()
-ipfm.train()
+adapter.train()
 
 if args.enable_xformers_memory_efficient_attention:
     if is_xformers_available():
@@ -344,6 +349,7 @@ if args.enable_xformers_memory_efficient_attention:
         raise ValueError("xformers is not available. Make sure it is installed correctly")
 
 if args.gradient_checkpointing:
+    # adapter.enable_gradient_checkpointing()
     controlnet.enable_gradient_checkpointing()
 
 # Check that all trainable models are in full precision
@@ -356,9 +362,9 @@ if accelerator.unwrap_model(controlnet).dtype != torch.float32:
     raise ValueError(
         f"Controlnet loaded as datatype {accelerator.unwrap_model(controlnet).dtype}. {low_precision_error_string}"
     )
-if accelerator.unwrap_model(ipfm).dtype != torch.float32:
+if accelerator.unwrap_model(adapter).dtype != torch.float32:
     raise ValueError(
-        f"IPFM loaded as datatype {accelerator.unwrap_model(ipfm).dtype}. {low_precision_error_string}"
+        f"Adapter loaded as datatype {accelerator.unwrap_model(adapter).dtype}. {low_precision_error_string}"
     )
 
 # Enable TF32 for faster training on Ampere GPUs,
@@ -385,8 +391,8 @@ else:
     optimizer_class = torch.optim.AdamW
 
 # Optimizer creation
-print(f'=================Optimize ControlNet and IPFM ======================')
-params_to_optimize = list(controlnet.parameters()) + list(ipfm.parameters())
+print(f'=================Optimize ControlNet and Adapter ======================')
+params_to_optimize = list(controlnet.parameters()) + list(adapter.parameters())
 
 print(f'start to load optimizer...')
 
@@ -424,8 +430,8 @@ lr_scheduler = get_scheduler(
 )
 
 # Prepare everything with our `accelerator`.
-controlnet, ipfm, optimizer, train_dataloader, lr_scheduler = accelerator.prepare(
-    controlnet, ipfm, optimizer, train_dataloader, lr_scheduler
+controlnet, adapter, optimizer, train_dataloader, lr_scheduler = accelerator.prepare(
+    controlnet, adapter, optimizer, train_dataloader, lr_scheduler
 )
 
 # For mixed precision training we cast the text_encoder and vae weights to half-precision
@@ -442,7 +448,7 @@ vae.to(accelerator.device, dtype=weight_dtype)
 unet.to(accelerator.device, dtype=weight_dtype)
 llm_model.to(accelerator.device, dtype=weight_dtype)
 controlnet.to(accelerator.device, dtype=weight_dtype)
-ipfm.to(accelerator.device, dtype=weight_dtype)
+adapter.to(accelerator.device, dtype=weight_dtype)
 
 num_update_steps_per_epoch = math.ceil(len(train_dataloader) / args.gradient_accumulation_steps)
 if overrode_max_train_steps:
@@ -509,7 +515,7 @@ progress_bar = tqdm(
 
 for epoch in range(first_epoch, args.num_train_epochs):
     for step, batch in enumerate(train_dataloader):
-        with accelerator.accumulate(controlnet) and accelerator.accumulate(ipfm):
+        with accelerator.accumulate(controlnet) and accelerator.accumulate(adapter):
             # print(type(batch))
             image = batch["image"].to(accelerator.device, dtype=weight_dtype)
             # Convert images to latent space
@@ -529,7 +535,7 @@ for epoch in range(first_epoch, args.num_train_epochs):
 
             # # Get the text embedding for conditioning
             text_embedding = llm_model(batch["caption"])
-            encoder_hidden_states = ipfm(text_embedding, timesteps).to(accelerator.device, dtype=weight_dtype)
+            encoder_hidden_states = adapter(text_embedding, timesteps).to(accelerator.device, dtype=weight_dtype)
 
             controlnet_image = batch["condition_image"].to(accelerator.device, dtype=weight_dtype)
 
@@ -570,8 +576,10 @@ for epoch in range(first_epoch, args.num_train_epochs):
             accelerator.backward(loss)
 
             if accelerator.sync_gradients:
+                # params_to_clip = list(controlnet.parameters()) + list(adapter.parameters())
+                # accelerator.clip_grad_norm_(params_to_clip, args.max_grad_norm)
                 accelerator.clip_grad_norm_(controlnet.parameters(), args.max_grad_norm)
-                accelerator.clip_grad_norm_(ipfm.parameters(), args.max_grad_norm)
+                accelerator.clip_grad_norm_(adapter.parameters(), args.max_grad_norm)
 
             optimizer.step()
             lr_scheduler.step()
@@ -601,7 +609,7 @@ if accelerator.is_main_process:
     controlnet = accelerator.unwrap_model(controlnet)
     controlnet.save_pretrained(args.output_dir)
 
-    ipfm = accelerator.unwrap_model(ipfm)
-    ipfm.save_pretrained(args.output_dir)
+    adapter = accelerator.unwrap_model(adapter)
+    adapter.save_pretrained(args.output_dir)
 
 accelerator.end_training()
