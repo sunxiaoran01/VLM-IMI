@@ -4,23 +4,25 @@ import argparse
 import glob
 from PIL import Image
 import numpy as np
+from einops import rearrange
 import torch
 from tqdm.auto import tqdm
 
 from diffusers import AutoencoderKL, UNet2DConditionModel, ControlNetModel, UniPCMultistepScheduler
+from diffusers.utils import load_image
 from diffusers.image_processor import VaeImageProcessor
 
-from models.ipfm import IPFM, T5TextEmbedder
+from models.adapter import Adapter, T5TextEmbedder
 
 
 def parse_args_and_config():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--config", type=str, default='configs/config.yml')
+    parser.add_argument("--config", type=str, default='/data/sunxr/LLM-Diff/configs/config.yml')
     parser.add_argument("--pretrained_model_path", type=str,
-                        default='pretrained/stable-diffusion-2.1')
-    parser.add_argument("--image_path", type=str, default='data/low')
-    parser.add_argument("--caption_path", type=str, default='data/text')
-    parser.add_argument("--output_dir", type=str, default='data/result')
+                        default='/data/sunxr/LLM-Diff/pretrained/stable-diffusion-2.1')
+    parser.add_argument("--image_path", type=str, default='/data/sunxr/LLM-Diff/data/low')
+    parser.add_argument("--caption_path", type=str, default='/data/sunxr/LLM-Diff/data/text')
+    parser.add_argument("--output_dir", type=str, default='/data/sunxr/LLM-Diff/data/result')
     parser.add_argument("--mixed_precision", type=str, default="fp16")
     parser.add_argument("--guidance_scale", type=float, default=1.0)
     parser.add_argument("--conditioning_scale", type=float, default=1.0)
@@ -57,21 +59,21 @@ if __name__ == "__main__":
     # Step-2: instantiate models and schedulers
     vae = AutoencoderKL.from_pretrained(args.pretrained_model_path, subfolder="vae", revision=None).to(device)
     unet = UNet2DConditionModel.from_pretrained(args.pretrained_model_path, subfolder="unet", revision=None).to(device)
-    controlnet = ControlNetModel.from_pretrained("output/checkpoint/controlnet").to(device)
-    llm_model = T5TextEmbedder(config, 'pretrained/flan-t5-large').to(device)
+    controlnet = ControlNetModel.from_pretrained("/data/sunxr/LLM-Diff/output_adapter/checkpoint-500000/controlnet").to(device)
+    llm_model = T5TextEmbedder(config, '/data/sunxr/LLM-Diff/pretrained/flan-t5-large').to(device)
 
     noise_scheduler = UniPCMultistepScheduler.from_pretrained(args.pretrained_model_path, subfolder="scheduler")
 
     vae_scale_factor = 2 ** (len(vae.config.block_out_channels) - 1)
     vae_image_processor = VaeImageProcessor(vae_scale_factor=vae_scale_factor, do_convert_rgb=True, do_normalize=True)
 
-    ipfm = IPFM.from_pretrained("output/checkpoint/ipfm").to(device)
+    adapter = Adapter.from_pretrained("/data/sunxr/LLM-Diff/output_adapter/checkpoint-500000/adapter").to(device)
 
     vae.requires_grad_(False)
     llm_model.requires_grad_(False)
     unet.requires_grad_(False)
     controlnet.requires_grad_(False)
-    ipfm.requires_grad_(False)
+    adapter.requires_grad_(False)
 
     # Step-3: prepare data
     if os.path.isdir(args.image_path):
@@ -94,12 +96,12 @@ if __name__ == "__main__":
                 caption = file.read().strip()
 
         with torch.no_grad():
-            # LLM and ipfm
+            # LLM and adapter
             timesteps = torch.randint(0, 1000, (1,), device="cuda:0")
             timesteps = timesteps.long()
 
             text_embedding = llm_model(caption)
-            prompt_embeds = ipfm(text_embedding, timesteps)
+            prompt_embeds = adapter(text_embedding, timesteps)
 
             width, height = image.size
             new_width = int(8 * np.ceil(width / 8.0))
