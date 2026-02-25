@@ -1,3 +1,13 @@
+# [CVPR 2026 Findings Workshop]Adapting Large VLMs with Iterative and Manual Instructions for Generative Low-light Enhancement
+
+<p align="center">
+Xiaoran Sun<sup>1,†</sup>, Liyan Wang<sup>1,†</sup>, Cong Wang<sup>2</sup>, Yeying Jin<sup>3</sup>, Kin-man Lam<sup>4</sup>, Zhixuan Su<sup>1,*</sup>, Yang Yang<sup>5</sup>, Jinshan Pan<sup>1</sup>
+</p>
+
+<p align="center">
+<sup>1</sup>Dalian University of Technology &nbsp;&nbsp; <sup>2</sup>University of California, San Francisco &nbsp;&nbsp; <sup>3</sup>National University of Singapore &nbsp;&nbsp; <sup>4</sup>The Hong Kong Polytechnic University &nbsp;&nbsp; <sup>5</sup>Nanjing University of Science and Technology
+</p>
+
 ## Dependencies and Installation
 
 - Python 3.10
@@ -54,4 +64,9 @@ Then, run:
 
 ```
 CUDA_VISIBLE_DEVICES="0,1" accelerate launch train.py --enable_xformers_memory_efficient_attention --gradient_checkpointing
+```
+
+## Testing
+```
+python test.py
 ```
