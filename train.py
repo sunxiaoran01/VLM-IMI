@@ -70,7 +70,6 @@ def sampling_train(vae, unet, scheduler, args, accelerator, noisy_latents, encod
         image_pred = vae.decode(latents / vae.config.scaling_factor, return_dict=False, generator=generator)[0]
 
     return image_pred
-# CUDA_VISIBLE_DEVICES="0,1" accelerate launch train.py --enable_xformers_memory_efficient_attention --gradient_checkpointing
 
 
 def parse_args_and_config():
