@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a1f93b50-2afa-479b-97fd-b502487e3028" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/configs/config.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/datasets/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/datasets/dataset.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/datasets/make_dataset.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/datasets/preprocess.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/infer.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/I2P.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
-    </list>
+    <list default="true" id="a1f93b50-2afa-479b-97fd-b502487e3028" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
