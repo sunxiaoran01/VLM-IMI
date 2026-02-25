@@ -1,0 +1,10 @@
+data:
+    max_length: 128
+
+time_channel: 320
+time_embed_dim: 1024
+embedding_dim: 1024
+layers: 6
+heads: 8
+num_latents: 64
+input_dim: 1024

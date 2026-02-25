@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="a1f93b50-2afa-479b-97fd-b502487e3028" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/configs/config.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/datasets/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/datasets/dataset.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/datasets/make_dataset.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/datasets/preprocess.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/infer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/I2P.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2mbFGzBaimjub9JDcS8aWXCfcE2" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "true",
+    "last_opened_file_path": "E:/代码/datasets",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\代码\datasets" />
+      <recent name="E:\LLM-Diffusion\models" />
+      <recent name="E:\LLM-Diffusion\models\refine" />
+      <recent name="E:\LLM-Diffusion\configs" />
+      <recent name="E:\LLM-Diffusion\loss" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\VLI-IMI\models" />
+      <recent name="E:\VLI-IMI" />
+      <recent name="E:\代码\utils_data" />
+      <recent name="E:\代码\utils" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.niqe">
+    <configuration name="ldm" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="LLM-Diffusion" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/models" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/models/ldm.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="LLM-Diffusion" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="musiq" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="LLM-Diffusion" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/models" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/models/musiq.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="niqe" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="LLM-Diffusion" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/models" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/models/niqe.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="train" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="LLM-Diffusion" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/train.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.niqe" />
+        <item itemvalue="Python.musiq" />
+        <item itemvalue="Python.main" />
+        <item itemvalue="Python.ldm" />
+        <item itemvalue="Python.train" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a1f93b50-2afa-479b-97fd-b502487e3028" name="Changes" comment="" />
+      <created>1727337277557</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1727337277557</updated>
+      <workItem from="1727614283460" duration="644000" />
+      <workItem from="1727669673342" duration="9764000" />
+      <workItem from="1727682584545" duration="12069000" />
+      <workItem from="1727750792576" duration="113000" />
+      <workItem from="1727750912142" duration="29349000" />
+      <workItem from="1728016475851" duration="13452000" />
+      <workItem from="1728126164952" duration="7137000" />
+      <workItem from="1728134090527" duration="996000" />
+      <workItem from="1728188592108" duration="15993000" />
+      <workItem from="1728212454877" duration="7654000" />
+      <workItem from="1728277192281" duration="21953000" />
+      <workItem from="1728363124619" duration="403000" />
+      <workItem from="1728363542345" duration="12017000" />
+      <workItem from="1728381584667" duration="6001000" />
+      <workItem from="1729490823576" duration="9695000" />
+      <workItem from="1729573413356" duration="4978000" />
+      <workItem from="1729592024780" duration="2902000" />
+      <workItem from="1729681469943" duration="4013000" />
+      <workItem from="1729748550745" duration="16809000" />
+      <workItem from="1729772902828" duration="357000" />
+      <workItem from="1729773270636" duration="1960000" />
+      <workItem from="1729837681660" duration="12502000" />
+      <workItem from="1729859880972" duration="2212000" />
+      <workItem from="1730010217689" duration="2186000" />
+      <workItem from="1730013222920" duration="267000" />
+      <workItem from="1730178592206" duration="19549000" />
+      <workItem from="1730206850334" duration="1187000" />
+      <workItem from="1730208070952" duration="3354000" />
+      <workItem from="1730267409440" duration="10052000" />
+      <workItem from="1730290371812" duration="11937000" />
+      <workItem from="1730366163717" duration="1865000" />
+      <workItem from="1730368144574" duration="185000" />
+      <workItem from="1730368344920" duration="951000" />
+      <workItem from="1730369316827" duration="168000" />
+      <workItem from="1730369493459" duration="7426000" />
+      <workItem from="1730377418572" duration="2044000" />
+      <workItem from="1730379490178" duration="1197000" />
+      <workItem from="1730443291684" duration="32012000" />
+      <workItem from="1730535063973" duration="10182000" />
+      <workItem from="1730545374714" duration="17523000" />
+      <workItem from="1731049300472" duration="2534000" />
+      <workItem from="1731142096229" duration="13911000" />
+      <workItem from="1731241790684" duration="1269000" />
+      <workItem from="1731376942847" duration="1326000" />
+      <workItem from="1731482845826" duration="29144000" />
+      <workItem from="1731906856278" duration="15873000" />
+      <workItem from="1731981092251" duration="45981000" />
+      <workItem from="1732336980536" duration="21000" />
+      <workItem from="1732344870218" duration="686000" />
+      <workItem from="1732348342274" duration="1222000" />
+      <workItem from="1732357186163" duration="711000" />
+      <workItem from="1732682648318" duration="33832000" />
+      <workItem from="1733026818427" duration="796000" />
+      <workItem from="1733027877810" duration="693000" />
+      <workItem from="1733029177897" duration="87447000" />
+      <workItem from="1733661707429" duration="31391000" />
+      <workItem from="1734235751249" duration="92038000" />
+      <workItem from="1735019820395" duration="2006000" />
+      <workItem from="1735024446968" duration="36584000" />
+      <workItem from="1735714282354" duration="669000" />
+      <workItem from="1735717753468" duration="294000" />
+      <workItem from="1735799862481" duration="762000" />
+      <workItem from="1735802339387" duration="13712000" />
+      <workItem from="1735908131777" duration="54000" />
+      <workItem from="1735908217944" duration="91449000" />
+      <workItem from="1736919540531" duration="261000" />
+      <workItem from="1736931107492" duration="22000" />
+      <workItem from="1737605855059" duration="29000" />
+      <workItem from="1737799037204" duration="83000" />
+      <workItem from="1737799192871" duration="52000" />
+      <workItem from="1737799354696" duration="4616000" />
+      <workItem from="1738735110058" duration="16000" />
+      <workItem from="1738836313204" duration="59000" />
+      <workItem from="1738837191061" duration="671000" />
+      <workItem from="1739173059363" duration="767000" />
+      <workItem from="1739174153248" duration="858000" />
+      <workItem from="1739263670063" duration="3041000" />
+      <workItem from="1739348749593" duration="32000" />
+      <workItem from="1740626072260" duration="16064000" />
+      <workItem from="1741579011082" duration="847000" />
+      <workItem from="1741589964868" duration="654000" />
+      <workItem from="1741607437932" duration="1385000" />
+      <workItem from="1741659225719" duration="4256000" />
+      <workItem from="1741867466324" duration="3657000" />
+      <workItem from="1741919753763" duration="8741000" />
+      <workItem from="1741955432627" duration="641000" />
+      <workItem from="1741956269065" duration="2000" />
+      <workItem from="1742186189874" duration="3565000" />
+      <workItem from="1742451676523" duration="315000" />
+      <workItem from="1743055608747" duration="8966000" />
+      <workItem from="1743067051917" duration="6192000" />
+      <workItem from="1743076688589" duration="9213000" />
+      <workItem from="1743148709586" duration="7757000" />
+      <workItem from="1743159178591" duration="17000" />
+      <workItem from="1743514319211" duration="151000" />
+      <workItem from="1743516562543" duration="65000" />
+      <workItem from="1743516641808" duration="2605000" />
+      <workItem from="1743821215698" duration="11593000" />
+      <workItem from="1743849625682" duration="1945000" />
+      <workItem from="1744034204990" duration="2562000" />
+      <workItem from="1744378918515" duration="6794000" />
+      <workItem from="1744459162549" duration="9700000" />
+      <workItem from="1744816677998" duration="1816000" />
+      <workItem from="1745030423595" duration="5804000" />
+      <workItem from="1745139707475" duration="1250000" />
+      <workItem from="1745642071127" duration="11023000" />
+      <workItem from="1746945104624" duration="1000" />
+      <workItem from="1746946270591" duration="196000" />
+      <workItem from="1749100430756" duration="3296000" />
+      <workItem from="1749480075566" duration="1823000" />
+      <workItem from="1751684583628" duration="2312000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
