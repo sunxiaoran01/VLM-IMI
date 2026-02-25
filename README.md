@@ -15,6 +15,7 @@ pip install torch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 --index-url https
 ```
 ### 3. Install Dependencies
 ```
+cd VLM-IMI
 pip install -r requirements.txt
 ```
 ## Data Preparation
@@ -23,11 +24,34 @@ You can refer to the following links to download the datasets.
 - LSRW: [LSRW](https://github.com/JianghaiSCU/R2RNet)
 - RAISE：[RAISE](https://loki.disi.unitn.it/RAISE/index.php)
 - LOLI-Street：[LOLI-Street](https://github.com/tanvirnwu/TriFuse_ACCV_2024)
+
+Then, you can use [LLaVA](https://github.com/haotian-liu/LLaVA) to generate instructions, the models can be downloaded from [Google Dirve](https://drive.google.com/file/d/11uH6y7jBKzj2s2fo7L8oJX-88xLiGHYb/view?usp=sharing).
+
+```
+cd datasets
+python make_dataset.py
+```
+
 Then, put them in the following folder:
+
 ```
 ├── data
-    ├── lowlight
-        ├── our485
-            ├──low
-            ├──high
+      ├── lowlight
+           ├── low
+           ├── high
+           └── text
+```
+
+Finally, run:
+
+```
+python preprocess.py
+```
+
+## Training
+You can download the required models from [T5](https://drive.google.com/file/d/1UI0f-riwlINe4-ZZpbZVbuFwX5hurXyG/view?usp=sharing) and [StableDiffusion](https://drive.google.com/file/d/1UgOzTYnvafgrxeCrzYoMZnfe-7aDubFK/view?usp=sharing).
+Then, run:
+
+```
+CUDA_VISIBLE_DEVICES="0,1" accelerate launch train.py --enable_xformers_memory_efficient_attention --gradient_checkpointing
 ```
