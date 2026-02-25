@@ -1,7 +1,7 @@
 # [CVPR 2026 Findings Workshop]Adapting Large VLMs with Iterative and Manual Instructions for Generative Low-light Enhancement
 
 <p align="center">
-Xiaoran Sun<sup>1,†</sup>, Liyan Wang<sup>1,†</sup>, Cong Wang<sup>2</sup>, Yeying Jin<sup>3</sup>, Kin-man Lam<sup>4</sup>, Zhixuan Su<sup>1,*</sup>, Yang Yang<sup>5</sup>, Jinshan Pan<sup>1</sup>
+Xiaoran Sun<sup>1,†</sup>, Liyan Wang<sup>1,†</sup>, Cong Wang<sup>2</sup>, Yeying Jin<sup>3</sup>, Kin-man Lam<sup>4</sup>, Zhixuan Su<sup>1,*</sup>, Yang Yang<sup>2</sup>, Jinshan Pan<sup>5</sup>
 </p>
 
 <p align="center">
